@@ -9,7 +9,7 @@ WORKDIR /app
 RUN groupadd -r spring && useradd -r -g spring spring
 
 # Copy the pre-built JAR file (built by Jenkins)
-COPY target/gestion-station-ski-1.0.jar app.jar
+COPY target/*.jar app.jar
 
 # Change ownership to spring user
 RUN chown spring:spring app.jar
