@@ -106,7 +106,7 @@ class SkierServicesImplMockitoTest {
         assertNotNull(savedSkier);
 
         // Verify with argument matchers
-        verify(skierRepository).findById(eq(1L));
+        verify(skierRepository).findById(1L);
         verify(skierRepository).save(argThat(skier -> 
             skier.getFirstName().equals("John") && skier.getLastName().equals("Doe")
         ));
