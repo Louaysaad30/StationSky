@@ -1,5 +1,5 @@
 # Simple Dockerfile for Spring Boot Application
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-alpine
 
 # Copy JAR file
 COPY target/*.jar app.jar
