@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  app:
+    # Use pre-built image from Docker Hub
+    image: louay05/gestion-station-ski:latest
+    # Uncomment below for local build
+    # build: 
+    #   context: .
+    #   dockerfile: Dockerfile
+    container_name: station-ski-app
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/station_ski_db
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root123
+    depends_on:
+      - mysql
+    networks:
+      - station-ski-network
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.0
+    container_name: station-ski-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: station_ski_db
+      MYSQL_USER: station_user
+      MYSQL_PASSWORD: station123
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - station-ski-network
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  station-ski-network:
+    driver: bridge
